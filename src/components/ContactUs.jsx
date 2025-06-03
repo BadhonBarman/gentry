@@ -1,8 +1,17 @@
 import anime from 'animejs';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 
 export default function ContactUs() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    comment: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
+  const [messageType, setMessageType] = useState(''); // 'success' or 'error'
+
   useEffect(() => {
           anime({
             targets: '.page-title',
@@ -83,6 +92,62 @@ export default function ContactUs() {
               };
           }, []);
         
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitMessage('');
+
+    // Basic validation
+    if (!formData.name.trim() || !formData.email.trim() || !formData.comment.trim()) {
+      setSubmitMessage('Please fill in all required fields.');
+      setMessageType('error');
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('comment', formData.comment);
+
+      const response = await fetch(`${window.location.origin}/mail-sender/send.php`, {
+        method: 'POST',
+        body: formDataToSend
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitMessage(result.message);
+        setMessageType('success');
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          comment: ''
+        });
+      } else {
+        setSubmitMessage(result.message || 'An error occurred while sending your message.');
+        setMessageType('error');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitMessage('Network error. Please check your connection and try again.');
+      setMessageType('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <>
     <section className="top-space-margin overflow-hidden p-0 bg-very-light-gray page-title-big-typography" style={{ marginTop: '124.984px' }}>
@@ -145,20 +210,20 @@ Gareeb-e-Newaz Ave, Uttara, Dhaka 1230.</a>
           
           <div className="col-lg-6 b-tag offset-xl-1 md-mb-50px sm-mb-0 appear anime-child anime-complete" data-anime='{"el": "childs", "translateX": [50, 0], "opacity": [0,1], "duration": 1200, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad"}'>
             <h3 className="text-dark-gray ls-minus-2px fw-700">Looking for any help?</h3>
-            <form action="email-templates/contact-form.php" method="post" className="contact-form-style-03">
+            <form action="email-templates/contact-form.php" method="post" className="contact-form-style-03" onSubmit={handleSubmit}>
               <label htmlFor="exampleInputEmail1" className="form-label fs-13 text-uppercase text-dark-gray fw-600 mb-0">Enter your name*</label>
               <div className="position-relative form-group mb-20px">
                 <span className="form-icon"><i className="bi bi-emoji-smile text-dark-gray"></i></span>
-                <input className="fs-15 ps-0 border-radius-0px border-color-dark-gray bg-transparent form-control required" id="exampleInputEmail1" type="text" name="name" placeholder="What's your good name" />
+                <input className="fs-15 ps-0 border-radius-0px border-color-dark-gray bg-transparent form-control required" id="exampleInputEmail1" type="text" name="name" placeholder="What's your good name" value={formData.name} onChange={handleInputChange} />
               </div>
               <label htmlFor="exampleInputEmail2" className="form-label fs-13 text-uppercase text-dark-gray fw-600 mb-0">Email address*</label>
               <div className="position-relative form-group mb-20px">
                 <span className="form-icon"><i className="bi bi-envelope text-dark-gray"></i></span>
-                <input className="fs-15 ps-0 border-radius-0px border-color-dark-gray bg-transparent form-control required" id="exampleInputEmail2" type="email" name="email" placeholder="Enter your email address" />
+                <input className="fs-15 ps-0 border-radius-0px border-color-dark-gray bg-transparent form-control required" id="exampleInputEmail2" type="email" name="email" placeholder="Enter your email address" value={formData.email} onChange={handleInputChange} />
               </div>
               <label htmlFor="comment" className="form-label fs-13 text-uppercase text-dark-gray fw-600 mb-0">Your message</label>
               <div className="position-relative form-group form-textarea mb-0">
-                <textarea className="fs-15 ps-0 border-radius-0px border-color-dark-gray bg-transparent form-control" name="comment" placeholder="Describe about your project" rows="3"></textarea>
+                <textarea className="fs-15 ps-0 border-radius-0px border-color-dark-gray bg-transparent form-control" name="comment" placeholder="Describe about your project" rows="3" value={formData.comment} onChange={handleInputChange}></textarea>
                 <span className="form-icon"><i className="bi bi-chat-square-dots text-dark-gray"></i></span>
               </div>
               <div className="row mt-25px align-items-center">
@@ -167,10 +232,17 @@ Gareeb-e-Newaz Ave, Uttara, Dhaka 1230.</a>
                 </div>
                 <div className="col-xl-5 col-lg-12 col-sm-5 text-center text-sm-end text-lg-start text-xl-end xs-mt-25px">
                   <input id="exampleInputEmail3" type="hidden" name="redirect" value="" />
-                  <button className="btn btn-medium btn-dark-gray btn-rounded btn-box-shadow submit" type="submit">Send message</button>
+                  <button className="btn btn-medium btn-dark-gray btn-rounded btn-box-shadow submit" type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? 'Sending...' : 'Send message'}
+                  </button>
                 </div>
                 <div className="col-12 mt-20px mb-0 text-center text-md-start">
                   <div className="form-results d-none"></div>
+                  {submitMessage && (
+                    <div className={`mt-3 ${messageType === 'success' ? 'text-success' : 'text-danger'}`}>
+                      {submitMessage}
+                    </div>
+                  )}
                 </div>
               </div>
             </form>

@@ -19,12 +19,6 @@ export default function OurTeam() {
     { id: 10, name: "Md. Sheikh Nobi", title: "Officer, Marketing", imagePath: "images/team/md_sheikh_nobi.jpg", hoverImagePath: "images/team/md_sheikh_nobi_hover.jpg" },
     { id: 11, name: "Naim Mahmud", title: "Officer, Marketing", imagePath: "images/team/naim_mahmud.jpg", hoverImagePath: "images/team/naim_mahmud_hover.jpg" },
     { id: 12, name: "Albab Tanim", title: "Manager-Business Development", imagePath: "images/team/alabab_tanim.jpeg", hoverImagePath: "images/team/alabab_tanim_hover.jpeg" },
-    
-    { id: 13, name: "Rezaur Rahman", title: "Manager", imagePath: "images/team/rezaur_rahman.jpg", hoverImagePath: "images/team/rezaur_rahman_hover.jpg" },
-    { id: 14, name: "Reshma Parvin", title: "Officer, Marketing", imagePath: "images/team/reshma_parvin.jpg", hoverImagePath: "images/team/reshma_parvin_hover.jpg" },
-    { id: 15, name: "Md Sohel Rana", title: "Deputy Manager, Accounts & Finance", imagePath: "images/team/md_sohel_rana.jpg", hoverImagePath: "images/team/md_sohel_rana_hover.jpg" },
-    { id: 16, name: "Md Mohiuddin Raju", title: "Accountant", imagePath: "images/team/md_mohiuddin_raju.jpeg", hoverImagePath: "images/team/md_mohiuddin_raju_hover.jpeg" },
-    
   ];
 
   const [hoveredMemberId, setHoveredMemberId] = useState(null);
@@ -128,7 +122,7 @@ export default function OurTeam() {
   {/* Row 3 */}
   <div className="row align-items-center mb-5  xs-mb-30px">
     {teamMembers.slice(3, 7).map((member) => (
-      <div key={member.id} className="col-md-3 text-center">
+      <div key={member.id} className="col-xl-3 col-lg-6 col-md-6 col-sm-6 text-center mb-4 md-mb-30px">
          <div className={`team-container${member.id} mx-auto mb-3`}
         onMouseEnter={() => handleMouseEnter(member.id)}
         onMouseLeave={handleMouseLeave}
@@ -156,8 +150,13 @@ export default function OurTeam() {
           />
 
         </div>
-        <h5 className="text-dark-gray fw-600">{member.name}</h5>
-        <p className="text-gray fw-400 font-20px" style={{ marginTop: "-20px" }}>
+        <h5 className="text-dark-gray fw-600" style={{ minHeight: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          {member.name === 'Md. A. J. Pahlawan' ? 
+            <>Md. A. J.<br />Pahlawan</> : 
+            member.name
+          }
+        </h5>
+        <p className="text-gray fw-400 font-20px" style={{ marginTop: "-20px", minHeight: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           {member.title}
         </p>
       </div>
@@ -167,7 +166,7 @@ export default function OurTeam() {
   {/* Row 4 */}
   <div className="row align-items-center mb-5 xs-mb-30px justify-content-center">
     {teamMembers.slice(7, 10).map((member) => (
-      <div key={member.id} className="col-md-4 text-center">
+      <div key={member.id} className="col-xl-4 col-lg-6 col-md-6 col-sm-6 text-center mb-4 md-mb-30px">
         <div className={`team-container${member.id} mx-auto mb-3`}
         onMouseEnter={() => handleMouseEnter(member.id)}
         onMouseLeave={handleMouseLeave}
@@ -195,8 +194,8 @@ export default function OurTeam() {
           />
 
         </div>
-        <h5 className="text-dark-gray fw-600">{member.name}</h5>
-        <p className="text-gray fw-400 font-20px" style={{ marginTop: "-20px" }}>
+        <h5 className="text-dark-gray fw-600" style={{ minHeight: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{member.name}</h5>
+        <p className="text-gray fw-400 font-20px" style={{ marginTop: "-20px", minHeight: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           {member.title}
         </p>
       </div>
@@ -206,7 +205,7 @@ export default function OurTeam() {
   {/* Row 5 */}
   <div className="row align-items-center mb-5 xs-mb-30px justify-content-center">
     {teamMembers.slice(10, 12).map((member) => (
-      <div key={member.id} className="col-md-5 text-center">
+      <div key={member.id} className="col-xl-5 col-lg-6 col-md-6 col-sm-6 text-center mb-4 md-mb-30px">
         <div className={`team-container${member.id} mx-auto mb-3`}
         onMouseEnter={() => handleMouseEnter(member.id)}
         onMouseLeave={handleMouseLeave}
@@ -234,53 +233,14 @@ export default function OurTeam() {
           />
 
         </div>
-        <h5 className="text-dark-gray fw-600">{member.name}</h5>
-        <p className="text-gray fw-400 font-20px" style={{ marginTop: "-20px" }}>
+        <h5 className="text-dark-gray fw-600" style={{ minHeight: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{member.name}</h5>
+        <p className="text-gray fw-400 font-20px" style={{ marginTop: "-20px", minHeight: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           {member.title}
         </p>
       </div>
     ))}
   </div>
 
-
-  {/* Row 6 */}
-  <div className="row align-items-center mb-5 xs-mb-30px">
-    {teamMembers.slice(12, 17).map((member) => (
-      <div key={member.id} className="col-md-3 text-center">
-         <div className={`team-container${member.id} mx-auto mb-3`}
-        onMouseEnter={() => handleMouseEnter(member.id)}
-        onMouseLeave={handleMouseLeave}
-        >
-          <img
-            style={
-              hoveredMemberId === member.id
-                ? { position: 'relative', zIndex: 10, opacity: 0, borderRadius: '25px', transition: 'opacity 0.4s ease-in-out'  }
-                : { borderRadius: '25px', opacity: 1, transition: 'opacity 0.4s ease-in-out' }
-            }
-            id={`team${member.id}`}
-            src={`${member.imagePath}`}
-            className={`${hoveredMemberId === member.id ? 'hidden relative z-10':''}`}
-            alt={member.name}
-            data-no-retina
-          />
-
-          <img
-            style={hoveredMemberId === member.id ? { borderRadius: "25px", opacity: 1, top:0, position:'absolute', right:0, zIndex:10, transition: 'opacity 0.4s ease-in-out'  }:
-              { borderRadius: "25px", opacity: 0, top:0, position:'absolute', right:0, zIndex:10, transition: 'opacity 0.4s ease-in-out'  }}
-            id={`hoverTeam${member.id}`}
-            src={member.hoverImagePath}
-            alt={`${member.name} Hover`}
-            data-no-retina
-          />
-
-        </div>
-        <h5 className="text-dark-gray fw-600">{member.name}</h5>
-        <p className="text-gray fw-400 font-20px" style={{ marginTop: "-20px" }}>
-          {member.title}
-        </p>
-      </div>
-    ))}
-  </div>
 
 </div>
 
