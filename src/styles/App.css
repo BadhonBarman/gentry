@@ -1,0 +1,157 @@
+
+.sister-text{
+    max-width: 40rem;
+    justify-self: center;
+  }
+  .sm-sister-text{
+    display: none !important;
+  }
+    
+  @media only screen and (max-width: 425px) {
+    .sister-text{
+      display: none !important;
+    }
+    .sm-sister-text{
+      display: block !important;
+    }
+  }
+
+  .yarl__container {
+    background-color: #00000069 !important;
+  }
+
+.modal-backdrop {
+  --bs-backdrop-zindex: 1050;
+  --bs-backdrop-bg: #000000c7;
+  --bs-backdrop-opacity: 1;
+}
+
+
+@media (max-width: 800px) {
+  .mfp-content {
+    max-width: 1050px;
+  }
+}
+@media (min-width: 1024px) {
+  .mfp-wrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-dialog{
+    max-width: fit-content;
+  }
+  .mfp-content {
+    width: 1050px;
+  }
+}
+
+
+
+
+            /* Container to hold both images */
+            .team-container1 {
+              position: relative;
+              width: 250px;
+            }
+            .team-container2 {
+              position: relative;
+              width: 250px;
+            }
+            .team-container3 {
+              position: relative;
+              width: 250px;
+            }
+            .team-container4 {
+              position: relative;
+              width: 250px;
+            }  
+            .team-container5 {
+              position: relative;
+              width: 250px;
+            }
+            .team-container6 {
+              position: relative;
+              width: 250px;
+            }
+            .team-container7 {
+              position: relative;
+              width: 250px;
+            }
+            .team-container8 {
+              position: relative;
+              width: 250px;
+            }
+            .team-container9 {
+              position: relative;
+              width: 250px;
+            }
+            .team-container10 {
+              position: relative;
+              width: 250px;
+            }
+            .team-container11 {
+              position: relative;
+              width: 250px;
+            }
+            .team-container12 {
+              position: relative;
+              width: 250px;
+            }
+          
+            /* Base image styling */
+            .team-img {
+              display: block;
+              width: 100%;
+              height: auto;
+            }
+          
+            /* Hover image positioned on top, initially invisible */
+            .hover-img {
+              position: absolute;
+              top: 0;
+              left: 0;
+              display: block;
+              width: 100%;
+              height: auto;
+              opacity: 0;
+              transition: opacity 0.4s ease-in-out;
+            }
+        
+
+            
+            /* Hover‑slide map + building image */
+            .map-wrapper {
+              position: relative;
+              width: 85%;
+              /* height: 85vh; */
+              margin: 0 auto;
+              border-radius: 15px;
+              overflow: hidden;
+
+            }
+            .map-wrapper .map {
+              float: left;
+              width: 100%;
+              height: 100%;
+              transition: width 0.5s ease;
+              filter: grayscale(100%);
+            }
+            .map-wrapper .map-overlay {
+              position: absolute;
+              top: 0;
+              right: -50%;
+              width: 50%;
+              height: 100%;
+              object-fit: cover;
+              transition: right 0.5s ease;
+            }
+            .map-wrapper:hover .map {
+              width: 50%;
+            }
+            .map-wrapper:hover .map-overlay {
+              right: 0;
+            }
+          
