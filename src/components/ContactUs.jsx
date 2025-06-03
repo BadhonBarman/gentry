@@ -8,9 +8,7 @@ export default function ContactUs() {
     email: '',
     comment: ''
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState('');
-  const [messageType, setMessageType] = useState(''); // 'success' or 'error'
+  const [result, setResult] = useState("");
 
   useEffect(() => {
           anime({
@@ -100,51 +98,37 @@ export default function ContactUs() {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitMessage('');
-
-    // Basic validation
-    if (!formData.name.trim() || !formData.email.trim() || !formData.comment.trim()) {
-      setSubmitMessage('Please fill in all required fields.');
-      setMessageType('error');
-      setIsSubmitting(false);
-      return;
-    }
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    setResult("Sending....");
+    
+    const formData = new FormData(event.target);
+    formData.append("access_key", "c5e4f80e-6c27-4276-a265-3ae762b1a764");
 
     try {
-      const formDataToSend = new FormData();
-      formDataToSend.append('name', formData.name);
-      formDataToSend.append('email', formData.email);
-      formDataToSend.append('comment', formData.comment);
-
-      const response = await fetch(`${window.location.origin}/mail-sender/send.php`, {
-        method: 'POST',
-        body: formDataToSend
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
       });
 
-      const result = await response.json();
+      const data = await response.json();
 
-      if (result.success) {
-        setSubmitMessage(result.message);
-        setMessageType('success');
-        // Reset form
+      if (data.success) {
+        setResult("Form Submitted Successfully");
+        event.target.reset();
+        // Reset controlled form state
         setFormData({
           name: '',
           email: '',
           comment: ''
         });
       } else {
-        setSubmitMessage(result.message || 'An error occurred while sending your message.');
-        setMessageType('error');
+        console.log("Error", data);
+        setResult(data.message);
       }
     } catch (error) {
-      console.error('Error submitting form:', error);
-      setSubmitMessage('Network error. Please check your connection and try again.');
-      setMessageType('error');
-    } finally {
-      setIsSubmitting(false);
+      console.error("Error submitting form:", error);
+      setResult("Network error. Please try again.");
     }
   };
 
@@ -201,7 +185,7 @@ export default function ContactUs() {
                 <div className="col-12 col-sm-12 last-paragraph-no-margin">
                   <p>Visit headquarters?</p>
                   <a href="https://maps.app.goo.gl/FuNWj18Qge4LEbKe6" target="_blank" className="text-dark-gray fw-600">
-                  UNIT- 3A, Plot-16 & 18, Navana Centroid,
+                  UNIT- 3A, Plot-16 & 18, Navana Centroid,<br />
 Gareeb-e-Newaz Ave, Uttara, Dhaka 1230.</a>
                 </div>
               </div>
@@ -210,7 +194,7 @@ Gareeb-e-Newaz Ave, Uttara, Dhaka 1230.</a>
           
           <div className="col-lg-6 b-tag offset-xl-1 md-mb-50px sm-mb-0 appear anime-child anime-complete" data-anime='{"el": "childs", "translateX": [50, 0], "opacity": [0,1], "duration": 1200, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad"}'>
             <h3 className="text-dark-gray ls-minus-2px fw-700">Looking for any help?</h3>
-            <form action="email-templates/contact-form.php" method="post" className="contact-form-style-03" onSubmit={handleSubmit}>
+            <form action="email-templates/contact-form.php" method="post" className="contact-form-style-03" onSubmit={onSubmit}>
               <label htmlFor="exampleInputEmail1" className="form-label fs-13 text-uppercase text-dark-gray fw-600 mb-0">Enter your name*</label>
               <div className="position-relative form-group mb-20px">
                 <span className="form-icon"><i className="bi bi-emoji-smile text-dark-gray"></i></span>
@@ -232,15 +216,15 @@ Gareeb-e-Newaz Ave, Uttara, Dhaka 1230.</a>
                 </div>
                 <div className="col-xl-5 col-lg-12 col-sm-5 text-center text-sm-end text-lg-start text-xl-end xs-mt-25px">
                   <input id="exampleInputEmail3" type="hidden" name="redirect" value="" />
-                  <button className="btn btn-medium btn-dark-gray btn-rounded btn-box-shadow submit" type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? 'Sending...' : 'Send message'}
+                  <button className="btn btn-medium btn-dark-gray btn-rounded btn-box-shadow submit" type="submit">
+                    Send message
                   </button>
                 </div>
                 <div className="col-12 mt-20px mb-0 text-center text-md-start">
                   <div className="form-results d-none"></div>
-                  {submitMessage && (
-                    <div className={`mt-3 ${messageType === 'success' ? 'text-success' : 'text-danger'}`}>
-                      {submitMessage}
+                  {result && (
+                    <div className={`mt-3 ${result === 'Form Submitted Successfully' ? 'text-success' : 'text-danger'}`}>
+                      {result}
                     </div>
                   )}
                 </div>

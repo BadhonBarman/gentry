@@ -398,7 +398,7 @@ return (
             </p>
             <p className='fs-18 text-dark-gray'>
                 Mr. Asadot Daullah was born in 1940 in Shirajgonj, Sengati. Studying in the primary school in the local area. After finishing high school, he moved to Dh…
-                <button data-bs-toggle="modal" data-bs-target="#exampleModal" className='border-0 bg-transparent'>See more</button>
+                <button data-bs-toggle="modal" data-bs-target="#exampleModal" className='border-0 bg-transparent btn-primary'>See more</button>
             </p>
             <h3 className="fs-24 fw-700 text-dark-gray mb-0">Mr. Asadot Daullah</h3>
             <h6 className="fs-16 fw-400 text-dark-gray">- Managing Director</h6>
@@ -447,7 +447,7 @@ return (
             </p>
             <p className='fs-18 text-dark-gray'>
                 Mr. Asadot Daullah was born in 1940 in Shirajgonj, Sengati. Studying in the primary school in the local area. After finishing high school, he moved to Dh…
-                <button data-bs-toggle="modal" data-bs-target="#exampleModal" className='border-0 bg-transparent'>See more</button>
+                <button data-bs-toggle="modal" data-bs-target="#exampleModal" className='border-0 bg-transparent' style={{'font-weight':'600'}}>See more</button>
             </p>
             <h3 className="fs-24 fw-700 text-dark-gray mb-0">Mr. Asadot Daullah</h3>
             <h6 className="fs-16 fw-400 text-dark-gray">- Managing Director</h6>

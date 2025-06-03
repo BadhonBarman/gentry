@@ -8,6 +8,61 @@ import anime from 'animejs';
 import OurClientHome from './OurClientHome';
 
 export default function Home() {
+    // Add form state management
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        comment: ''
+    });
+    const [result, setResult] = useState("");
+
+    // Add form handling functions
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const onSubmit = async (event) => {
+        event.preventDefault();
+        setResult("Sending....");
+        
+        const formData = new FormData(event.target);
+        formData.append("access_key", "c5e4f80e-6c27-4276-a265-3ae762b1a764");
+
+        try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                setResult("Form Submitted Successfully");
+                event.target.reset();
+                // Reset controlled form state
+                setFormData({
+                    name: '',
+                    email: '',
+                    phone: '',
+                    subject: '',
+                    comment: ''
+                });
+            } else {
+                console.log("Error", data);
+                setResult(data.message);
+            }
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            setResult("Network error. Please try again.");
+        }
+    };
+
     const sliderContent = [
         {
           id: 1,
@@ -884,7 +939,7 @@ export default function Home() {
                                     <div className="mfp-close"></div>
                                     <iframe 
                                         className="mfp-iframe" 
-                                        src="//www.youtube.com/embed/6a06M7Ayx_w?autoplay=1" 
+                                        src="//www.youtube.com/embed/VwTVB0Mdt_4?autoplay=1" 
                                         allowFullScreen
                                         style={{ position: "absolute", top: "0", left: "0", width: "100%", height: "100%" }}
                                     ></iframe>
@@ -917,7 +972,7 @@ export default function Home() {
 
         <section className="pb-8 sm-pb-50px position-relative overflow-hidden" style={{ backgroundColor: "#FDFCFD" }}>
             <div className="container">
-            <div className="row mb-6 text-center appear anime-child anime-complete">
+            <div className="row mb-6 text-center appear anime-complete">
   <div className="col">
     <span className="m-tag fs-16 text-uppercase text-base-color fw-600 mb-5px d-block">
       A Global Leader In Pharmaceutical logistics
@@ -1070,69 +1125,118 @@ export default function Home() {
                 </div>
 
                 <div className="col-lg-7 offset-xxl-1 j-tag">
-        
-                    <form action="email-templates/contact-form.php" method="post" className="contact-form-style-03">
+                    <form onSubmit={onSubmit} className="contact-form-style-03">
                     <div className="row justify-content-center">
          
                         <div className="col-md-6 xs-mb-30px">
-                        <label htmlFor="name" className="form-label fw-600 text-dark-gray text-uppercase fs-14 mb-0">
+                        <label htmlFor="home-name" className="form-label fw-600 text-dark-gray text-uppercase fs-14 mb-0">
                             Enter your name*
                         </label>
                         <div className="position-relative form-group mb-25px xs-mb-0">
                             <span className="form-icon">
                             <i className="bi bi-emoji-smile text-dark-gray"></i>
                             </span>
-                            <input className="ps-0 border-radius-0px border-color-dark-gray bg-transparent form-control required" id="name" type="text" name="name" placeholder="What's your good name?" />
+                            <input 
+                                className="ps-0 border-radius-0px border-color-dark-gray bg-transparent form-control required" 
+                                id="home-name" 
+                                type="text" 
+                                name="name" 
+                                placeholder="What's your good name?" 
+                                value={formData.name} 
+                                onChange={handleInputChange} 
+                            />
                         </div>
                         </div>
                   
                         <div className="col-md-6 xs-mb-30px">
-                        <label htmlFor="phone" className="form-label fw-600 text-dark-gray text-uppercase fs-14 mb-0">
+                        <label htmlFor="home-phone" className="form-label fw-600 text-dark-gray text-uppercase fs-14 mb-0">
                             Phone number
                         </label>
                         <div className="position-relative form-group mb-25px xs-mb-0">
                             <span className="form-icon">
                             <i className="bi bi-telephone text-dark-gray"></i>
                             </span>
-                            <input className="ps-0 border-radius-0px border-color-dark-gray bg-transparent form-control" id="phone" type="tel" name="phone" placeholder="Enter your phone number" />
+                            <input 
+                                className="ps-0 border-radius-0px border-color-dark-gray bg-transparent form-control" 
+                                id="home-phone" 
+                                type="tel" 
+                                name="phone" 
+                                placeholder="Enter your phone number" 
+                                value={formData.phone} 
+                                onChange={handleInputChange} 
+                            />
                         </div>
                         </div>
                        
                         <div className="col-md-6 xs-mb-30px">
-                        <label htmlFor="email" className="form-label fw-600 text-dark-gray text-uppercase fs-14 mb-0">
+                        <label htmlFor="home-email" className="form-label fw-600 text-dark-gray text-uppercase fs-14 mb-0">
                             Email address*
                         </label>
                         <div className="position-relative form-group mb-25px xs-mb-0">
                             <span className="form-icon">
                             <i className="bi bi-envelope text-dark-gray"></i>
                             </span>
-                            <input className="ps-0 border-radius-0px border-color-dark-gray bg-transparent form-control required" id="email" type="email" name="email" placeholder="Enter your email address" />
+                            <input 
+                                className="ps-0 border-radius-0px border-color-dark-gray bg-transparent form-control required" 
+                                id="home-email" 
+                                type="email" 
+                                name="email" 
+                                placeholder="Enter your email address" 
+                                value={formData.email} 
+                                onChange={handleInputChange} 
+                            />
                         </div>
                         </div>
                   
                         <div className="col-md-6 xs-mb-30px">
-                        <label htmlFor="subject" className="form-label fw-600 text-dark-gray text-uppercase fs-14 mb-0">
+                        <label htmlFor="home-subject" className="form-label fw-600 text-dark-gray text-uppercase fs-14 mb-0">
                             Subject
                         </label>
                         <div className="position-relative form-group mb-25px xs-mb-0">
                             <span className="form-icon">
                             <i className="bi bi-journals text-dark-gray"></i>
                             </span>
-                            <input className="ps-0 border-radius-0px border-color-dark-gray bg-transparent form-control" id="subject" type="text" name="subject" placeholder="How can we help you?" />
+                            <input 
+                                className="ps-0 border-radius-0px border-color-dark-gray bg-transparent form-control" 
+                                id="home-subject" 
+                                type="text" 
+                                name="subject" 
+                                placeholder="How can we help you?" 
+                                value={formData.subject} 
+                                onChange={handleInputChange} 
+                            />
                         </div>
                         </div>
                    
                         <div className="col-12 mb-4 xs-mb-30px">
-                        <label htmlFor="message" className="form-label fw-600 text-dark-gray text-uppercase fs-14 mb-0">
-                            Your message
+                        <label htmlFor="home-message" className="form-label fw-600 text-dark-gray text-uppercase fs-14 mb-0">
+                            Your message*
                         </label>
                         <div className="position-relative form-group form-textarea mb-0">
-                            <textarea className="ps-0 border-radius-0px border-color-dark-gray bg-transparent form-control" name="comment" placeholder="" rows="3"></textarea>
+                            <textarea 
+                                className="ps-0 border-radius-0px border-color-dark-gray bg-transparent form-control" 
+                                id="home-message"
+                                name="comment" 
+                                placeholder="Tell us about your inquiry..." 
+                                rows="3" 
+                                value={formData.comment} 
+                                onChange={handleInputChange}
+                            ></textarea>
                             <span className="form-icon">
                             <i className="bi bi-chat-square-dots text-dark-gray"></i>
                             </span>
                         </div>
                         </div>
+
+                        {/* Success/Error Message */}
+                        {result && (
+                            <div className="col-12 mb-20px">
+                                <div className={`alert ${result.includes('Successfully') ? 'alert-success' : 'alert-danger'} d-flex align-items-center`}>
+                                    <i className={`${result.includes('Successfully') ? 'fa-solid fa-check-circle' : 'fa-solid fa-exclamation-triangle'} me-10px`}></i>
+                                    {result}
+                                </div>
+                            </div>
+                        )}
                  
                         <div className="col-xl-5 col-md-7">
                         <p className="mb-0 fs-14 lh-24 text-center text-md-start">
@@ -1140,16 +1244,18 @@ export default function Home() {
                         </p>
                         </div>
                         <div className="col-xl-7 col-md-5 text-center text-md-end sm-mt-25px">
-                        <input id="redirect" type="hidden" name="redirect" value="" />
-                        <button className="btn btn-medium btn-dark-gray btn-rounded btn-switch-text btn-box-shadow fw-500 left-icon submit" type="submit">
+                        <button 
+                            className="btn btn-medium btn-dark-gray btn-rounded btn-switch-text btn-box-shadow fw-500 left-icon submit" 
+                            type="submit" 
+                            disabled={result === "Sending...."}
+                        >
                             <span>
-                            <span><i className="fa-regular fa-envelope"></i></span>
-                            <span className="btn-double-text" data-text="Submit request">Submit request</span>
+                            <span><i className={result === "Sending...." ? 'fa-solid fa-spinner fa-spin' : 'fa-regular fa-envelope'}></i></span>
+                            <span className="btn-double-text" data-text={result === "Sending...." ? 'Sending...' : 'Submit request'}>
+                                {result === "Sending...." ? 'Sending...' : 'Submit request'}
+                            </span>
                             </span>
                         </button>
-                        </div>
-                        <div className="col-12">
-                        <div className="form-results mt-20px d-none"></div>
                         </div>
                     </div>
                     </form>
