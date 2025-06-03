@@ -2461,9 +2461,9 @@ input:focus, select:focus, textarea:focus, .form-control:focus {
   margin-bottom: -3px;
 }
 /* Magic cursor */
-.magic-cursor {
+/* .magic-cursor {
   cursor: none;
-}
+} */
 #ball-cursor {
   position: fixed;
   width: 70px;

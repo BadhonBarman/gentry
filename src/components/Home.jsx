@@ -355,52 +355,52 @@ export default function Home() {
       const [cursorStyle, setCursorStyle] = useState({ opacity: 0, left: 0, top: 0 });
 
       
-  useEffect(() => {
-    let mouseX = 0;
-    let mouseY = 0;
-    let cursorX = 0;
-    let cursorY = 0;
-    const speed = 0.15; // Adjust speed for smoother motion
+  // useEffect(() => {
+  //   let mouseX = 0;
+  //   let mouseY = 0;
+  //   let cursorX = 0;
+  //   let cursorY = 0;
+  //   const speed = 0.15; // Adjust speed for smoother motion
 
-    const handleMouseMove = (e) => {
-      const heroSection = document.querySelector(".hero-section");
+  //   const handleMouseMove = (e) => {
+  //     const heroSection = document.querySelector(".hero-section");
 
-      if (heroSection && heroSection.contains(e.target)) {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        setCursorStyle((prev) => ({ ...prev, opacity: 1 })); // Show cursor
-      }
-    };
+  //     if (heroSection && heroSection.contains(e.target)) {
+  //       mouseX = e.clientX;
+  //       mouseY = e.clientY;
+  //       setCursorStyle((prev) => ({ ...prev, opacity: 1 })); // Show cursor
+  //     }
+  //   };
 
-    const handleMouseLeave = () => {
-      setCursorStyle((prev) => ({ ...prev, opacity: 0 })); // Hide cursor when leaving hero section
-    };
+  //   const handleMouseLeave = () => {
+  //     setCursorStyle((prev) => ({ ...prev, opacity: 0 })); // Hide cursor when leaving hero section
+  //   };
 
-    const animateCursor = () => {
-      cursorX += (mouseX - cursorX) * speed;
-      cursorY += (mouseY - cursorY) * speed;
+  //   const animateCursor = () => {
+  //     cursorX += (mouseX - cursorX) * speed;
+  //     cursorY += (mouseY - cursorY) * speed;
 
-      setCursorStyle((prev) => ({
-        ...prev,
-        left: cursorX,
-        top: cursorY,
-      }));
+  //     setCursorStyle((prev) => ({
+  //       ...prev,
+  //       left: cursorX,
+  //       top: cursorY,
+  //     }));
 
-      requestAnimationFrame(animateCursor);
-    };
+  //     requestAnimationFrame(animateCursor);
+  //   };
 
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseleave", handleMouseLeave);
-    document.querySelector(".hero-section")?.addEventListener("mouseleave", handleMouseLeave);
+  //   document.addEventListener("mousemove", handleMouseMove);
+  //   document.addEventListener("mouseleave", handleMouseLeave);
+  //   document.querySelector(".hero-section")?.addEventListener("mouseleave", handleMouseLeave);
 
-    animateCursor(); // Start smooth animation loop
+  //   animateCursor(); // Start smooth animation loop
 
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseleave", handleMouseLeave);
-      document.querySelector(".hero-section")?.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, []);
+  //   return () => {
+  //     document.removeEventListener("mousemove", handleMouseMove);
+  //     document.removeEventListener("mouseleave", handleMouseLeave);
+  //     document.querySelector(".hero-section")?.removeEventListener("mouseleave", handleMouseLeave);
+  //   };
+  // }, []);
       
 
       
@@ -499,9 +499,9 @@ export default function Home() {
             </div>
           </SwiperSlide>
         ))}
-
+{/* 
 <div
-      className="custom-cursor"
+      // className="custom-cursor"
       style={{
         position: "fixed",
         width: "80px",
@@ -525,7 +525,7 @@ export default function Home() {
     >
       <i class="fa-solid fa-chevron-left"></i>
       <i class="fa-solid fa-chevron-right"></i>
-    </div>
+    </div> */}
 
 
       </Swiper>
