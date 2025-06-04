@@ -397,7 +397,7 @@ return (
             Mr. Asadot Daullah stands at the helm of Gentry Corporation Limited, steering the company with visionary leadership and unwavering commitment. With a career span of over four decades, Mr. Daullah has been instrumental in transforming Gentry Corporation from a modest API supplier to a leading pharmaceutical powerhouse.
             </p>
             <p className='fs-18 text-dark-gray'>
-                Mr. Asadot Daullah was born in 1940 in Shirajgonj, Sengati. Studying in the primary school in the local area. After finishing high school, he moved to Dh…
+            Mr. Asadot Daullah was born in 1940 in Sirajganj where the village is called Sengati. His primary school was in the local area. After finishing high school from B.L High school Sirajganj, he moved to Dh…
                 <button data-bs-toggle="modal" data-bs-target="#exampleModal" className='border-0 bg-transparent btn-primary'>See more</button>
             </p>
             <h3 className="fs-24 fw-700 text-dark-gray mb-0">Mr. Asadot Daullah</h3>
