@@ -42,6 +42,7 @@ export default function Gallery() {
     { url: "/images/gallery/35.jpg", title: "title 33" },
     { url: "/images/gallery/36.jpg", title: "title 34" },
     { url: "/images/gallery/37.jpg", title: "title 35" },
+    { url: "/images/gallery/38.jpg", title: "title 38" },
 
   ];
   
